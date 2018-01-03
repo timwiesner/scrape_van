@@ -36,6 +36,8 @@ gymshark = [{"title": "Gymshark Storm Waterproof Parka Campaign - Grey", "produc
 unifclothing = [{"title": "Everyday Bliss Sweater", "product_type": "Men's Sweaters", "tags": ["back-in-stock", "bf-50-off", "discountable", "fall 2 2016", "Men's Flash Sale", "returnable", "sizechart-mtops"]}, {"title": "Staple Bra", "product_type": "Women's Intimates", "tags": ["discountable", "fall 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Dionne Sweater", "product_type": "Women's Sweaters", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Klub Jacket", "product_type": "Women's Outerwear", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Yes Tee", "product_type": "Men's Tees", "tags": ["discountable", "returnable", "sizechart-newtees"]}, {"title": "Yes Tee", "product_type": "Men's Tees", "tags": ["discountable", "returnable", "sizechart-newtees"]}, {"title": "Vision Backpack", "product_type": "Women's Accessories", "tags": ["bag", "bags", "discountable", "holiday 2017", "purse", "returnable"]}, {"title": "Fat Logo Baby Tee", "product_type": "Women's Tees", "tags": ["discountable", "holiday 2017", "returnable"]}, {"title": "Bam Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Bam Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Bam Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Morgan Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Phyllis Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Dawn Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Debbie Button Up", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Stem Long Sleeve", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Suga Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Suga Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Spun Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Cid Sweater", "product_type": "Women's Sweaters", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Nina Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Tink Tank", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Tink Tank", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Tink Tank", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Tink Tank", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Planet Crop Top", "product_type": "Women's Tops", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses"]}, {"title": "Cherry Hat", "product_type": "Women's Accessories", "tags": ["discountable", "holiday 2017", "nonreturnable"]}, {"title": "Cherry Hat", "product_type": "Women's Accessories", "tags": ["discountable", "holiday 2017", "nonreturnable"]}, {"title": "Cherry Hat", "product_type": "Women's Accessories", "tags": ["discountable", "holiday 2017", "nonreturnable"]}, {"title": "Brandy Sweater", "product_type": "Women's Sweaters", "tags": ["discountable", "holiday 2017", "returnable", "sizechart-wtopsdresses", "women's tops"]}]
 
 
+# TO do: Make sure program works by tags or type
+# To Do: List pretty?
 def get_company(products):
     if products == 'shoploganpaul':
         return shoploganpaul
@@ -51,44 +53,44 @@ def get_company(products):
 
 def get_types(products):
     product_types = []
-    product_tags = []
-    potential_products_by_type = []
-    potential_products_by_tag = []
 
     for p in products:
         product_types.append(p["product_type"])
     product_types = sorted(list(set(product_types)))
     print(product_types)
-
     get_type = input("Enter product type: ")
+    get_tags(products, get_type)
 
+
+def get_tags(products, type):
+    products_by_type = []
+    product_tags = []
     for p in products:
-        if get_type == p["product_type"]:
-            potential_products_by_type.append(p)
+        if type == p["product_type"]:
+            products_by_type.append(p)
             tags = p["tags"]
             for tag in tags:
                 product_tags.append(tag)
-
     product_tags = sorted(list(set(product_tags)))
     print(product_tags)
-
     get_tag = input("Enter tag from above list: ")
+    get_results(products_by_type, get_tag)
 
+
+def get_results(products_by_type, get_tag):
     # TO DO: If tag listed on all products, delete
-    for p in potential_products_by_type:
+    potential_products_by_tag = []
+    for p in products_by_type:
         tags = p["tags"]
         for tag in tags:
             if get_tag == tag:
                 potential_products_by_tag.append(p)
-
-
     display_results(potential_products_by_tag)
 
 
 def display_results(items):
     result = json.dumps(items, indent=2)
     print(result)
-    print(type(result))
 
 
 def run_program():
