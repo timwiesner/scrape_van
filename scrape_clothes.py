@@ -1,7 +1,7 @@
 import requests, json
 
-shopify_sites = {'fashionnova', 'gymshark', 'shoploganpaul', 'donomano'}
-# shopify_sites = {'fashionnova'}
+# shopify_sites = {'fashionnova', 'gymshark', 'shoploganpaul', 'donomano'}
+shopify_sites = {'unifclothing'}
 
 url_template = 'https://www.{}.com/products.json'
 
@@ -13,7 +13,8 @@ for s in shopify_sites:
 
     json_data = r.json()
 
-    data = {}
+    data = []
+
 
     for each in json_data['products']:
         title = each['title']
