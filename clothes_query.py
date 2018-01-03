@@ -49,23 +49,19 @@ def get_company(products):
         print("\nInput not recognized.\nThe program will now restart.")
         run_program()
 
-def get_product_types(products):
-    # empty product types and tags arrays
+def get_types(products):
     product_types = []
     product_tags = []
     potential_products_by_type = []
     potential_products_by_tag = []
 
-    # get list of product types
     for p in products:
         product_types.append(p["product_type"])
     product_types = sorted(list(set(product_types)))
     print(product_types)
 
-    # prompt user to enter specific product type
     get_type = input("Enter product type: ")
 
-    # return product tags with specified type
     for p in products:
         if get_type == p["product_type"]:
             potential_products_by_type.append(p)
@@ -76,30 +72,23 @@ def get_product_types(products):
     product_tags = sorted(list(set(product_tags)))
     print(product_tags)
 
-    # prompt user to enter specific product tag
     get_tag = input("Enter tag from above list: ")
 
+    # TO DO: If tag listed on all products, delete
     for p in potential_products_by_type:
         tags = p["tags"]
         for tag in tags:
             if get_tag == tag:
                 potential_products_by_tag.append(p)
 
-    print(potential_products_by_tag)
 
+    display_results(potential_products_by_tag)
 
-    # TODO: return products with specified tag
-    # if get_tag in product_tags:
-    #     for p in products:
-    #         if get_type ==
-
-
-    # for s in potential_products:
-    #     print(s["title"])
 
 def display_results(items):
     result = json.dumps(items, indent=2)
     print(result)
+    print(type(result))
 
 
 def run_program():
@@ -108,6 +97,6 @@ def run_program():
     # products = input("Company: ").lower()
     # products = get_company(products)
     products = get_company('gymshark')
-    get_product_types(products)
+    get_types(products)
 
 run_program()
