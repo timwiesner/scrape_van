@@ -1,7 +1,7 @@
 import requests, json
 
 # TO do: Make sure program works by tags or type
-# To Do: List pretty?
+# TO DO: Error handling
 def get_products(site):
     url_template = 'https://www.{}.com/products.json'
     url = url_template.format(site)
@@ -14,6 +14,7 @@ def get_products(site):
         tags = each['tags']
         data.append({'title':title, 'product_type':product_type, 'tags':tags})
     get_types(data)
+
 
 def get_types(products):
     product_types = []
@@ -42,13 +43,13 @@ def get_tags(products, type):
 
 def get_results(products_by_type, get_tag):
     # TO DO: If tag listed on all products, delete
-    potential_products_by_tag = []
+    products_by_tag = []
     for p in products_by_type:
         tags = p["tags"]
         for tag in tags:
             if get_tag == tag:
-                potential_products_by_tag.append(p)
-    display_results(potential_products_by_tag)
+                products_by_tag.append(p)
+    display_results(products_by_tag)
 
 
 def display_results(items):
@@ -57,6 +58,8 @@ def display_results(items):
 
 
 def run_program():
+    print("""Enter a Shopify Store. I.e. 'fashionnova', 'gymshark', 'unifclothing', 'ripndipclothing', 'sisterjane', 'cr7', 'untuckit', 'rebeccaminkoff', 'jackthreads', 'thirdlove', 'teddyfresh', 'teeturtle', 'theyetee', 'onlyny', 'chicnico' """)
+    # print("Enter a Shopify Store BY TAGS. I.e. 'donomano', 'shoploganpaul', 'giovoss' ")
     site = input("Company: ").lower()
     get_products(site)
 
